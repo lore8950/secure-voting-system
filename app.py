@@ -204,6 +204,31 @@ with st.sidebar:
 
     st.session_state["menu"] = choice
 
+# ─── Election Timer ─────────────────────────────────────────────
+
+    rem = get_remaining_time()
+
+    if rem > 0 and is_election_active():
+
+        h, r = divmod(int(rem), 3600)
+        m, s = divmod(r, 60)
+
+        st.markdown(f"""
+        <div class='timer-box'>
+            <p>● LIVE ELECTION · ENDS IN</p>
+            <h1>{h:02d}:{m:02d}:{s:02d}</h1>
+        </div>
+        """, unsafe_allow_html=True)
+
+    else:
+
+        st.markdown("""
+        <div class='timer-box'>
+            <p>ELECTION STATUS</p>
+            <h1>● Closed</h1>
+        </div>
+        """, unsafe_allow_html=True)
+
 # ─── Navigation Logic ─────────────────────────────────────────
 
 if choice == "🏠 Home":
@@ -251,31 +276,6 @@ elif choice == "🚪 Logout":
         admin_logout_page()
     else:
         logout_page()
-
-# ─── Election Timer ─────────────────────────────────────────────
-
-    rem = get_remaining_time()
-
-    if rem > 0 and is_election_active():
-
-        h, r = divmod(int(rem), 3600)
-        m, s = divmod(r, 60)
-
-        st.markdown(f"""
-        <div class='timer-box'>
-            <p>● LIVE ELECTION · ENDS IN</p>
-            <h1>{h:02d}:{m:02d}:{s:02d}</h1>
-        </div>
-        """, unsafe_allow_html=True)
-
-    else:
-
-        st.markdown("""
-        <div class='timer-box'>
-            <p>ELECTION STATUS</p>
-            <h1>● Closed</h1>
-        </div>
-        """, unsafe_allow_html=True)
 
 # # ─── HOME ──────────────────────────────────────────────────────────────
 # if choice == "🏠 Home":
